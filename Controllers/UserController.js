@@ -11,8 +11,8 @@ const express=require("express")
 const app=express(express)
 
 
-const getUser = (req, res) => {
- User.find().then(dataL => {
+const getUserCustomers = (req, res) => {
+ User.find({role:'customer'}).then(dataL => {
       res.status(200).send({
           dataL
           
@@ -23,6 +23,17 @@ const getUser = (req, res) => {
       console.log(err)
   });
 };
+const getDealers=(req,res)=>{
+  User.find({role:'Dealer'}).then(dataL=>{
+    res.status(200).send({
+      dataL
+    })
+    console.log(dataL)
+  }).catch((err)=>{
+    res.status(500).json(err)
+    console.log(err)
+  })
+}
 
 
 
@@ -36,7 +47,7 @@ const SignUp = async (req, res, next) => {
     );
   }
   const { name,role, email, password, } = req.body;
-console.log(name,role, email, password);
+//console.log(name,role, email, password);
   User.findOne({ email: email }).then(user => {
     if (user) {
       if (user.email == email ) {
@@ -54,8 +65,8 @@ console.log(name,role, email, password);
           name,
           role,
           email,
-          
-          password: hashedpassword
+          //password:password,
+         password: hashedpassword,
         });
         createdUser.save()
           .then((SavedUser) => {
@@ -179,12 +190,9 @@ const Login = async (req, res, next) => {
     const { email } = req.body;
             console.log(email,"from auto")
     let existingUser;
-    // req.session.existingUser=existingUser;
-    // req.session.save();
-  
+    
     try {
       existingUser = await User.findOne({ email: email })
-      //console.log(existingUser)
 
       if(existingUser){
         res.json({role:existingUser.role})
@@ -203,7 +211,8 @@ const Login = async (req, res, next) => {
   
 
 
-exports.getUser = getUser;
+exports.getUserCustomers = getUserCustomers;
+exports.getDealers=getDealers;
 exports.SignUp = SignUp;
 exports.Login = Login;
 exports.autoSignIn = autoSignIn;

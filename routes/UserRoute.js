@@ -19,11 +19,11 @@ check('password').isLength({max:20})
 ],UserController.SignUp);
 
 router.post("/login",UserController.Login);
-// router.get("/logout",UserController.Logout);
 router.post("/autoSignIn",UserController.autoSignIn);
 
 
-router.get("/gettingusers",UserController.getUser);
+router.get("/gettingusers",UserController.getUserCustomers);
+router.get('/gettingDealers',UserController.getDealers)
 
 
 module.exports=router;
