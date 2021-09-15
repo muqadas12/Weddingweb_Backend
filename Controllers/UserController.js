@@ -46,7 +46,7 @@ const SignUp = async (req, res, next) => {
       new HttpError('Invalid inputs passed, please check your data.', 422)
     );
   }
-  const { name,role, email, password, } = req.body;
+  const { name,role, email, password,phoneNumber,address } = req.body;
 //console.log(name,role, email, password);
   User.findOne({ email: email }).then(user => {
     if (user) {
@@ -65,6 +65,8 @@ const SignUp = async (req, res, next) => {
           name,
           role,
           email,
+          phoneNumber,
+          address,
           //password:password,
          password: hashedpassword,
         });
@@ -209,12 +211,33 @@ const Login = async (req, res, next) => {
   
     }
   
+const dashboard=async(req,res,next)=>{
+  const { email } = req.body;
+  let existingUser;
+    
+  try {
+    existingUser = await User.findOne({ email: email })
 
+    if(existingUser){
+      res.json({existingUser})
+    }
+  } catch (err) {
+    const error = new HttpError(
+      'no data found, please try again later.',
+      500
+    );
+    return next(error);
+  }
+
+
+
+}
 
 exports.getUserCustomers = getUserCustomers;
 exports.getDealers=getDealers;
 exports.SignUp = SignUp;
 exports.Login = Login;
 exports.autoSignIn = autoSignIn;
+exports.dashboard=dashboard;
 
 

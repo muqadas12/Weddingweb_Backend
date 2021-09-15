@@ -20,6 +20,8 @@ check('password').isLength({max:20})
 
 router.post("/login",UserController.Login);
 router.post("/autoSignIn",UserController.autoSignIn);
+router.post("/dashboard",UserController.dashboard);
+
 
 
 router.get("/gettingusers",UserController.getUserCustomers);

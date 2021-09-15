@@ -73,7 +73,49 @@ console.log(dealer.pathImg)
 
   })
 
+  const getSaloonServices=app.get('/get-saloon-services',function(req,res,next){
+    dealerservices.find({dealerservice:"Saloon"}).then(dataSaloon => {
+        res.status(200).send({ dataSaloon });
+    })
+        .catch(err => {
+            return res.status(500).send({
+                Message: 'Unable to get. Please Try later.',
+                err,
+            });
+        });
 
-
-
-  module.exports={getDealerdata,postDealerdata}
+  })
+const getCarServices=app.get('/get-cars',function(req,res,next){
+    dealerservices.find({dealerservice:"Car rental"}).then(dataCar=>{
+        res.status(200).send({dataCar})
+    })
+    .catch(err=>{
+        return res.status(500).send({
+            Message:'unable to view car rental services',
+            err
+        })
+    })
+})
+const getCatering=app.get('/get-catering',function(req,res,next){
+    dealerservices.find({dealerservice:"Catering"}).then(dataCatering=>{
+        res.status(200).send(dataCatering)
+    })
+    .catch((err)=>{
+        return res.status(500).send({
+            err,
+            Message:'couldnot get ant catering service :( '
+        })
+    })
+})
+const getPhotos=app.get('/get-photo',function(req,res,next){
+    dealerservices.find({dealerservice:"Photography"}).then(dataPhoto=>{
+        res.status(200).send(dataPhoto)
+    })
+    .catch((err)=>{
+        return res.status(500).send({
+            err,
+            Message:'couldnot get any photos.. :( '
+        })
+    })
+})
+  module.exports={getDealerdata,postDealerdata,getSaloonServices,getCarServices,getCatering,getPhotos}
