@@ -7,13 +7,7 @@ const dealerservices=require('../Models/Dealer');
 const app=express();
 app.use('/static',express.static('uploadFiles'))
 
-const cloudinary = require('cloudinary').v2;
-cloudinary.config({
-    cloud_name:'dpt9qa7ms',
-    api_key:'755591287886294',
-    api_secret:'***************************'	
 
-});
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploadFiles');
@@ -41,6 +35,7 @@ const storage = multer.diskStorage({
       dealer.dealerservice=req.body.dealerservice;
       dealer.description=req.body.description;
       dealer.price=req.body.price;
+      dealer.email=req.body.email;
 
       dealer.pathImg='http://localhost:2000/static/'+req.file.filename;
     
@@ -61,8 +56,15 @@ console.log(dealer.pathImg)
   })
 
   const getDealerdata=app.get('/get-dealers',function(req,res,next){
-    dealerservices.find().then(data => {
-        res.status(200).send({ data });
+  console.log(req.query.email, "im email of get")
+    dealerservices.find({ email: req.query.email }).then(data => {
+
+
+
+        console.log((data), "from dealer servicessssssssssss")
+        res.status(200).send({ img: data.map(c=>c.img), serviceName:data.map(c=>c.serviceName), dealerservice:data.map(c=>c.dealerservice), description:data.map(c=>c.description)
+            ,price:data.map(c=>c.price)
+        });
     })
         .catch(err => {
             return res.status(500).send({

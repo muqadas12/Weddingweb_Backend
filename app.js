@@ -8,6 +8,11 @@ const updatedDealersdata=require("./Controllers/UpdateDealers")
 const hallRoute=require('./routes/HallRoute');
 const mongoose = require('mongoose')
 const emailsend=require('./routes/Email')
+const bookighallRoute=require('./routes/Booking')
+const photographyBooking=require('./routes/PhotographyBooking');
+const carRentalBooking=require('./routes/CarRentalRoute');
+const saloonBooking=require('./routes/Saloon');
+const cateringBooking=require('./routes/CateringRoute')
 require('./ModelS/Blog')
 
 const upload = require('./Controllers/multer');
@@ -46,6 +51,18 @@ app.get('/', (req, res) => res.send('Hello world!'));
 
 
 app.use("/api/users",userRoute);
+app.use('/api/bookedhall',bookighallRoute)
+
+//photographybooking
+app.use('/api/bookingPhoto',photographyBooking)
+//car rental booking
+app.use('/api/carBooking',carRentalBooking);
+//saloon
+app.use('/api/saloonBooking',saloonBooking)
+//catering
+app.use('/api/cateringfood',cateringBooking)
+
+
  app.use("/api/hall",hallRoute);
  app.use('/api/email',emailsend)
 //  app.use(checkAuth());

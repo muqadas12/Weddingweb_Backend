@@ -5,6 +5,11 @@ const dealerSchema=mongoose.Schema({
         type:String,
         require:true
     },
+    email:{
+        type:String,
+        require:true
+
+    },
     dealerservice:{
         type:String,
         require:true
