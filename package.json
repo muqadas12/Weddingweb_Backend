@@ -5,11 +5,13 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "D": "^1.0.0",
     "async": "^3.2.1",
     "aws-sdk": "^2.983.0",
     "bcryptjs": "^2.4.3",
@@ -37,12 +39,14 @@
     "nodemailer": "^6.6.3",
     "path": "^0.12.7",
     "session": "^0.1.0",
+    "swagger-doc": "^0.3.0",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2",
     "validation": "0.0.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "prettier": "^2.4.1"
   }
 }

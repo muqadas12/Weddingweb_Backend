@@ -1,11 +1,11 @@
-const nodemailer=require('nodemailer')
-const express=require('express');
-const bodyParser=require('body-parser')
-const app=express.Router();
+const nodemailer = require("nodemailer");
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express.Router();
 
-app.post('/mail',function(req,res,next){
-    nodemailer.createTestAccount((err,info)=>{
-        const htmlEmail=`
+app.post("/mail", function (req, res, next) {
+  nodemailer.createTestAccount((err, info) => {
+    const htmlEmail = `
         <h3>Contact detail</h3>
         <ul>
         <li>Name:${req.body.name}</li>
@@ -17,41 +17,32 @@ app.post('/mail',function(req,res,next){
      
         
        
-        `
+        `;
 
-  
+    var transport = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "muqadasshaban@gmail.com",
+        pass: "momina20",
+      },
+    });
 
+    var mailoption = {
+      from: req.body.name,
+      to: "muqadasshaban@gmail.com",
+      subject: "New msg",
+      rec: req.body.email,
+      text: req.body.msg,
+      html: htmlEmail,
+    };
+    transport.sendMail(mailoption, function (err, info) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("mail sent!" + info.response);
+      }
+    });
+  });
+});
 
-
-    var transport=nodemailer.createTransport({
-      
-        service:'gmail',
-        auth:{
-            user:'muqadasshaban@gmail.com',
-            pass:'momina20'
-        }
-    })
-
-    var mailoption={
-        from:req.body.name,
-        to:'muqadasshaban@gmail.com',
-        subject:'New msg',
-        rec:req.body.email,
-        text:req.body.msg,
-        html:htmlEmail,
-        
-    }
-    transport.sendMail(mailoption,function(err,info){
-        if(err){
-            console.log(err)
-        }
-        else{
-            console.log('mail sent!'+info.response)
-        }
-
-    })
-})
-
-})
-
-module.exports=app;
+module.exports = app;

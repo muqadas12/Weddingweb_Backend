@@ -1,7 +1,7 @@
-const express=require('express');
-const photographyController=require('../Controllers/PhotographyBooking');
-const router=express.Router();
+const express = require("express");
+const photographyController = require("../Controllers/PhotographyBooking");
+const router = express.Router();
 
-router.post('/booking',photographyController.PhotoshootBooking)
+router.post("/booking", photographyController.PhotoshootBooking);
 
-module.exports=router;
+module.exports = router;

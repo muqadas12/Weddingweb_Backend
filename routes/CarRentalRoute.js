@@ -1,7 +1,7 @@
-const express=require('express');
-const carRentalController=require('../Controllers/CarRental');
-const app=express.Router();
+const express = require("express");
+const carRentalController = require("../Controllers/CarRental");
+const app = express.Router();
 
-app.post('/carRental',carRentalController.CarsBooking)
+app.post("/carRental", carRentalController.CarsBooking);
 
-module.exports=app
+module.exports = app;
