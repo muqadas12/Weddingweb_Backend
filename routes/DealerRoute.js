@@ -51,6 +51,15 @@ const postDealerdata = app.post(
     });
   }
 );
+/**
+ * @swagger
+ * /api/users/gettingDealers:
+ *  get:
+ *   description: Use to request all dealers
+ *   responses:
+ *    '200':
+ *      description: A successful response
+ */
 
 const getDealerdata = app.get("/get-dealers", function (req, res, next) {
   console.log(req.query.email, "im email of get");
@@ -58,15 +67,13 @@ const getDealerdata = app.get("/get-dealers", function (req, res, next) {
     .find({ email: req.query.email })
     .then((data) => {
       console.log(data, "from dealer servicessssssssssss");
-      res
-        .status(200)
-        .send({
-          img: data.map((c) => c.img),
-          serviceName: data.map((c) => c.serviceName),
-          dealerservice: data.map((c) => c.dealerservice),
-          description: data.map((c) => c.description),
-          price: data.map((c) => c.price),
-        });
+      res.status(200).send({
+        img: data.map((c) => c.img),
+        serviceName: data.map((c) => c.serviceName),
+        dealerservice: data.map((c) => c.dealerservice),
+        description: data.map((c) => c.description),
+        price: data.map((c) => c.price),
+      });
     })
     .catch((err) => {
       return res.status(500).send({

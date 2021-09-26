@@ -1,12 +1,25 @@
-const express = require("express");
-const CateringSchema = require("../Models/CateringModel");
-const bodyParser = require("body-parser");
+const express = require('express');
+const CateringSchema = require('../Models/CateringModel');
+const bodyParser = require('body-parser');
 const app = express.Router();
 
 const CateringBooking = async (req, res, next) => {
-  const { functionDate, functionTime, functionType, foodType, numOfPeople } =
-    req.body;
-  console.log(functionDate, functionTime, numOfPeople, functionType, foodType);
+  const {
+    functionDate,
+    functionTime,
+    functionType,
+    foodType,
+    numOfPeople,
+    email,
+  } = req.body;
+  console.log(
+    functionDate,
+    functionTime,
+    numOfPeople,
+    functionType,
+    foodType,
+    email
+  );
 
   const cateringBooking = new CateringSchema({
     functionDate,
@@ -14,6 +27,7 @@ const CateringBooking = async (req, res, next) => {
     numOfPeople,
     functionType,
     foodType,
+    email,
   });
   cateringBooking
     .save()
@@ -25,4 +39,7 @@ const CateringBooking = async (req, res, next) => {
       console.log(res);
     });
 };
+
+// const getCateringService=
+
 module.exports = { CateringBooking };

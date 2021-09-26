@@ -1,9 +1,10 @@
 const users = require('../Models/UserModel');
-const express = require("express");
+const express = require('express');
 const app = express();
 
 const updateUsers = (req, res, next) => {
   const query = { $set: req.body };
+  console.log(req.body);
   users.findByIdAndUpdate(
     req.params.id,
     query,
@@ -19,9 +20,9 @@ const updateUsers = (req, res, next) => {
   );
 };
 
-const delUsers = app.delete("/delete/:id", function (req, res, next) {
+const delUsers = app.delete('/delete/:id', function (req, res, next) {
   const id = req.params.id;
   users.findByIdAndRemove(id).exec();
-  res.send("deleted users!");
+  res.send('deleted users!');
 });
 module.exports = { updateUsers, delUsers };

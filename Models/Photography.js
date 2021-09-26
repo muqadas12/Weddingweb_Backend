@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const photographySchema = new mongoose.Schema({
   functionDate: {
@@ -14,4 +14,4 @@ const photographySchema = new mongoose.Schema({
     required: true,
   },
 });
-module.exports = mongoose.model("photography", photographySchema);
+module.exports = mongoose.model('photography', photographySchema);

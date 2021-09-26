@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const cateringSchema = new mongoose.Schema({
   functionDate: {
     type: String,
@@ -20,6 +20,10 @@ const cateringSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+  },
 });
 
-module.exports = mongoose.model("Catering", cateringSchema);
+module.exports = mongoose.model('Catering', cateringSchema);

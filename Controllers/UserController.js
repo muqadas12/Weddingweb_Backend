@@ -85,13 +85,11 @@ const SignUp = async (req, res, next) => {
                 return next(error);
               }
               console.log(token, SavedUser);
-              res
-                .status(201)
-                .json({
-                  userId: SavedUser._id,
-                  email: SavedUser.email,
-                  token: token,
-                });
+              res.status(201).json({
+                userId: SavedUser._id,
+                email: SavedUser.email,
+                token: token,
+              });
             })
             .catch((err) => {
               const error = new HttpError(
