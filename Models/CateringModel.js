@@ -12,15 +12,20 @@ const cateringSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  foodType: {
-    type: String,
-    required: true,
-  },
+
   numOfPeople: {
     type: String,
     required: true,
   },
   email: {
+    type: String,
+    required: true,
+  },
+  serviceName: {
+    type: String,
+    required: true,
+  },
+  serviceCategory: {
     type: String,
     required: true,
   },

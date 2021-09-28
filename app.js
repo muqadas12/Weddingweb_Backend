@@ -13,6 +13,7 @@ const photographyBooking = require('./routes/PhotographyBooking');
 const carRentalBooking = require('./routes/CarRentalRoute');
 const saloonBooking = require('./routes/Saloon');
 const cateringBooking = require('./routes/CateringRoute');
+const orderStausRoute = require('./routes/OrderStausRoute');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const index = require('./index');
@@ -42,6 +43,7 @@ app.get('/', (req, res) => res.send('Hello world!'));
 
 app.use('/api/users', userRoute);
 app.use('/api/bookedhall', bookighallRoute);
+app.use('/api/orderstatus', orderStausRoute);
 
 //photographybooking
 app.use('/api/bookingPhoto', photographyBooking);
@@ -59,7 +61,6 @@ app.use('/api/saloon', DealerRoute.getSaloonServices);
 app.use('/api/cars', DealerRoute.getCarServices);
 app.use('/api/catering', DealerRoute.getCatering);
 app.use('/api/servicescatering', cateringBooking);
-app.use('/api/get', cateringBooking);
 
 app.use('/api/photos', DealerRoute.getPhotos);
 

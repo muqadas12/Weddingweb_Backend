@@ -7,7 +7,7 @@ router.post('/booking', cateringController.CateringBooking);
  * get catering return all booked service for catering
  */
 router.get('/get-catering', function (req, res, next) {
-  CateringSchema.find({})
+  CateringSchema.find()
     .then((data) => {
       console.log(data);
 
@@ -32,6 +32,10 @@ router.get('/get-cateringservices', function (req, res, next) {
         functionTime: data.map((c) => c.functionTime),
         functionType: data.map((c) => c.functionType),
         foodType: data.map((c) => c.foodType),
+        email: data.map((c) => c.email),
+        serviceName: data.map((c) => c.serviceName),
+        serviceCategory: data.map((c) => c.serviceCategory),
+
         numOfPeople: data.map((c) => c.numOfPeople),
       });
     })

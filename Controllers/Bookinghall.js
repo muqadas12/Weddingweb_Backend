@@ -13,14 +13,33 @@ const app = express();
  *
  */
 const booking = async (req, res, next) => {
-  const { functionDate, functionTime, functionType, numOfPeople } = req.body;
-  console.log(functionDate, functionTime, functionType, numOfPeople);
+  const {
+    functionDate,
+    functionTime,
+    functionType,
+    numOfPeople,
+    email,
+    serviceName,
+    serviceCategory,
+  } = req.body;
+  console.log(
+    functionDate,
+    functionTime,
+    functionType,
+    numOfPeople,
+    email,
+    serviceName,
+    serviceCategory
+  );
 
   const booked = new bookingSchema({
     functionDate,
     functionTime,
     functionType,
     numOfPeople,
+    email,
+    serviceName,
+    serviceCategory,
   });
   booked
     .save()

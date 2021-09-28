@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const CarrentalSchema = new mongoose.Schema({
   functionDate: {
     type: String,
@@ -12,5 +12,17 @@ const CarrentalSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+  },
+  serviceName: {
+    type: String,
+    required: true,
+  },
+  serviceCategory: {
+    type: String,
+    required: true,
+  },
 });
-module.exports = mongoose.model("CarRental", CarrentalSchema);
+module.exports = mongoose.model('CarRental', CarrentalSchema);

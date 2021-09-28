@@ -8,17 +8,20 @@ const CateringBooking = async (req, res, next) => {
     functionDate,
     functionTime,
     functionType,
-    foodType,
+
     numOfPeople,
     email,
+    serviceName,
+    serviceCategory,
   } = req.body;
   console.log(
     functionDate,
     functionTime,
     numOfPeople,
     functionType,
-    foodType,
-    email
+    email,
+    serviceName,
+    serviceCategory
   );
 
   const cateringBooking = new CateringSchema({
@@ -26,8 +29,9 @@ const CateringBooking = async (req, res, next) => {
     functionTime,
     numOfPeople,
     functionType,
-    foodType,
     email,
+    serviceName,
+    serviceCategory,
   });
   cateringBooking
     .save()

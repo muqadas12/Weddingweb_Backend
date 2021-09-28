@@ -13,13 +13,30 @@ const app = express.Router();
  *
  */
 const CarsBooking = async (req, res, next) => {
-  const { functionDate, functionTime, numOfPeople } = req.body;
-  console.log(functionDate, functionTime, numOfPeople);
+  const {
+    functionDate,
+    functionTime,
+    numOfPeople,
+    email,
+    serviceName,
+    serviceCategory,
+  } = req.body;
+  console.log(
+    functionDate,
+    functionTime,
+    numOfPeople,
+    email,
+    serviceName,
+    serviceCategory
+  );
 
   const carRentalBooking = new CarRentalSchema({
     functionDate,
     functionTime,
     numOfPeople,
+    email,
+    serviceName,
+    serviceCategory,
   });
   carRentalBooking
     .save()
@@ -31,4 +48,5 @@ const CarsBooking = async (req, res, next) => {
       console.log(res);
     });
 };
+
 module.exports = { CarsBooking };
