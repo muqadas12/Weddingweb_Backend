@@ -16,11 +16,17 @@ const cateringBooking = require('./routes/CateringRoute');
 const orderStausRoute = require('./routes/OrderStausRoute');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
+const stripe = require('stripe')(
+  'sk_test_51JebqAJnwz0YjBAE0QJYh1fHJa4NURL2Y2Wliv9oR5Z9gvRI4nzOJUMUJFmZQPOJizaDOxAnxAGG080lT1v7BgoG00pHQRnM5M'
+);
+
 const index = require('./index');
+require('dotenv').config();
 
 const app = express();
+// const app=express.Router();
+app.use(express.json());
 app.use('/static', express.static('uploadFiles'));
-
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader(
@@ -57,6 +63,8 @@ app.use('/api/cateringfood', cateringBooking);
 app.use('/api/hall', hallRoute);
 app.use('/api/email', emailsend);
 app.use('/api/getdealer', DealerRoute.getDealerdata);
+app.use('/api/getAlldealer', DealerRoute.getAllDealers);
+
 app.use('/api/saloon', DealerRoute.getSaloonServices);
 app.use('/api/cars', DealerRoute.getCarServices);
 app.use('/api/catering', DealerRoute.getCatering);
@@ -85,124 +93,37 @@ const swaggerOptions = {
     },
   },
   apis: ['app.js'],
-  // apis: ["routes/SwaggerApi/api.doc.js"],
+  apis: ['routes/SwaggerApi/api.doc.js'],
 };
 const swaggerDoc = swaggerJsdoc(swaggerOptions);
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-/**
- * @swagger
- * definitions:
- *   Dealer:
- *     properties:
- *
- *       serviceName:
- *         type: string
- *       dealerService:
- *         type: string
- *       description:
- *         type: string
- *       price:
- *         type: string
- *       email:
- *         type: string
- *       pathImg:
- *         type: file
- */
-
-/**
- * @swagger
- * definitions:
- *   Users:
- *     properties:
- *       name:
- *         type: string
- *       email:
- *         type: string
- *       phoneNumber:
- *         type: string
- *       address:
- *         type: string
- *       password:
- *         type: string
- *       role:
- *         type: string
- *
- *
- */
-
-/**
- * @swagger
- * /api/users/gettingusers:
- *  get:
- *   description: Use to request all dealers
- *   responses:
- *    '200':
- *      description: A successful response
- */
-
-/**
- * @swagger
- * /api/delUser/delete/{id}:
- *   delete:
- *      summary: del dealer from  mongodb
- *      description: deleting dealer profile from mongodb database
- *      parameters:
- *             - in: path
- *               name: id
- *               schema:
- *                  type: string
- *                  required: true
- *
- *      responses:
- *       200:
- *        description: delete user profile
- *
- *
- *
- */
-
-/**
- * @swagger
- * /api/users/signup:
- *   post:
- *     tags:
- *       - Dealers
- *     description: Creates a new dealer
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: user
- *         description: user
- *         in: body
- *         required: true
- *         schema:
- *           $ref: '#/definitions/Users'
- *     responses:
- *       200:
- *         description: Successfully created
- */
-/**
- * @swagger
- * /api/updateuser/{id}:
- *  patch:
- *      description: Used to update message
- *      parameters:
- *          -   name:  id
- *              in:    path
- *              type: string
- *              required: true
- *
- *          -   name: name
- *              in:   body
- *              type: string
- *              required: true
- *              schema:
- *                  $ref: '#/definitions/Users'
- *      responses:
- *          '200':
- *              description: 'A successful response'
- */
+//biling
+app.post('/stripe/charge', async (req, res) => {
+  console.log('stripe-routes.js 9 | route reached', req.body);
+  let { amount, id } = req.body;
+  console.log('stripe-routes.js 10 | amount and id', amount, id);
+  try {
+    const payment = await stripe.paymentIntents.create({
+      amount: amount,
+      currency: 'USD',
+      description: 'Wanclouds wedding',
+      payment_method: id,
+      confirm: true,
+    });
+    console.log('stripe-routes.js 19 | payment', payment);
+    res.json({
+      message: 'Payment Successful',
+      success: true,
+    });
+  } catch (error) {
+    console.log('stripe-routes.js 17 | error', error);
+    res.json({
+      message: 'Payment Failed',
+      success: false,
+    });
+  }
+});
 
 const port = process.env.PORT || 2000;
 

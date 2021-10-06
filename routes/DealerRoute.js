@@ -1,15 +1,15 @@
-const express = require("express");
-const path = require("path");
-const multer = require("multer");
-const fs = require("fs");
-const dealerservices = require("../Models/Dealer");
+const express = require('express');
+const path = require('path');
+const multer = require('multer');
+const fs = require('fs');
+const dealerservices = require('../Models/Dealer');
 
 const app = express();
-app.use("/static", express.static("uploadFiles"));
+app.use('/static', express.static('uploadFiles'));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploadFiles");
+    cb(null, 'uploadFiles');
   },
   filename: (req, file, cb) => {
     console.log(file);
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
   },
 });
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype == "image/jpeg" || file.mimetype == "image/jpeg") {
+  if (file.mimetype == 'image/jpeg' || file.mimetype == 'image/jpeg') {
     cb(null, true);
   } else {
     cb(null, false);
@@ -26,8 +26,8 @@ const fileFilter = (req, file, cb) => {
 const uploads = multer({ storage: storage });
 
 const postDealerdata = app.post(
-  "/post-dealers",
-  uploads.single("image"),
+  '/post-dealers',
+  uploads.single('image'),
   async (req, res, next) => {
     var dealer = new dealerservices();
 
@@ -37,16 +37,16 @@ const postDealerdata = app.post(
     dealer.price = req.body.price;
     dealer.email = req.body.email;
 
-    dealer.pathImg = "http://localhost:2000/static/" + req.file.filename;
+    dealer.pathImg = 'http://localhost:2000/static/' + req.file.filename;
 
     console.log(dealer.pathImg);
 
-    dealer.img.contentType = "image/png";
+    dealer.img.contentType = 'image/png';
     dealer.save((err, result) => {
       console.log(result);
 
       if (err) return console.log(err);
-      console.log("saved to database");
+      console.log('saved to database');
       res.send(dealer);
     });
   }
@@ -61,12 +61,12 @@ const postDealerdata = app.post(
  *      description: A successful response
  */
 
-const getDealerdata = app.get("/get-dealers", function (req, res, next) {
-  console.log(req.query.email, "im email of get");
+const getDealerdata = app.get('/get-dealers', function (req, res, next) {
+  // console.log(req.query.email, "im email of get");
   dealerservices
     .find({ email: req.query.email })
     .then((data) => {
-      console.log(data, "from dealer servicessssssssssss");
+      console.log(data, 'from dealer servicessssssssssss');
       res.status(200).send({
         img: data.map((c) => c.img),
         serviceName: data.map((c) => c.serviceName),
@@ -77,69 +77,86 @@ const getDealerdata = app.get("/get-dealers", function (req, res, next) {
     })
     .catch((err) => {
       return res.status(500).send({
-        Message: "Unable to get. Please Try later.",
+        Message: 'Unable to get. Please Try later.',
         err,
       });
     });
 });
 
 const getSaloonServices = app.get(
-  "/get-saloon-services",
+  '/get-saloon-services',
   function (req, res, next) {
     dealerservices
-      .find({ dealerservice: "Saloon" })
+      .find({ dealerservice: 'Saloon' })
       .then((dataSaloon) => {
         res.status(200).send({ dataSaloon });
       })
       .catch((err) => {
         return res.status(500).send({
-          Message: "Unable to get. Please Try later.",
+          Message: 'Unable to get. Please Try later.',
           err,
         });
       });
   }
 );
-const getCarServices = app.get("/get-cars", function (req, res, next) {
+const getCarServices = app.get('/get-cars', function (req, res, next) {
   dealerservices
-    .find({ dealerservice: "Car rental" })
+    .find({ dealerservice: 'Car rental' })
     .then((dataCar) => {
       res.status(200).send({ dataCar });
     })
     .catch((err) => {
       return res.status(500).send({
-        Message: "unable to view car rental services",
+        Message: 'unable to view car rental services',
         err,
       });
     });
 });
-const getCatering = app.get("/get-catering", function (req, res, next) {
+const getCatering = app.get('/get-catering', function (req, res, next) {
   dealerservices
-    .find({ dealerservice: "Catering" })
+    .find({ dealerservice: 'Catering' })
     .then((dataCatering) => {
       res.status(200).send(dataCatering);
     })
     .catch((err) => {
       return res.status(500).send({
         err,
-        Message: "couldnot get ant catering service :( ",
+        Message: 'couldnot get ant catering service :( ',
       });
     });
 });
-const getPhotos = app.get("/get-photo", function (req, res, next) {
+const getPhotos = app.get('/get-photo', function (req, res, next) {
   dealerservices
-    .find({ dealerservice: "Photography" })
+    .find({ dealerservice: 'Photography' })
     .then((dataPhoto) => {
       res.status(200).send(dataPhoto);
     })
     .catch((err) => {
       return res.status(500).send({
         err,
-        Message: "couldnot get any photos.. :( ",
+        Message: 'couldnot get any photos.. :( ',
       });
     });
 });
+const getAllDealers = app.get(
+  '/get-all-dealer-services',
+  function (req, res, next) {
+    dealerservices
+      .find({})
+      .then((dataAlldealers) => {
+        res.status(200).send(dataAlldealers);
+      })
+      .catch((err) => {
+        return res.status(500).send({
+          err,
+          Message: 'couldnot get any dealers.. :( ',
+        });
+      });
+  }
+);
 module.exports = {
   getDealerdata,
+  getAllDealers,
   postDealerdata,
   getSaloonServices,
   getCarServices,

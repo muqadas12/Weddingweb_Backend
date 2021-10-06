@@ -28,9 +28,9 @@ app.get('/get-Saloonservices', function (req, res, next) {
 });
 app.get('/get-saloon-services', function (req, res, next) {
   saloonSchema
-    .find()
+    .find({ dealerEmail: req.query.email })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
 
       res.status(200).send({
         data,

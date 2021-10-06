@@ -1,15 +1,15 @@
-const HttpError = require("../Models/http-error");
-const { validationResult } = require("express-validator");
-const User = require("../Models/UserModel");
-const uuid = require("uuid");
-const bcryptjs = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const HttpError = require('../Models/http-error');
+const { validationResult } = require('express-validator');
+const User = require('../Models/UserModel');
+const uuid = require('uuid');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const express = require("express");
+const express = require('express');
 const app = express(express);
 
 const getUserCustomers = (req, res) => {
-  User.find({ role: "customer" })
+  User.find({ role: 'customer' })
     .then((dataL) => {
       res.status(200).send({
         dataL,
@@ -22,7 +22,7 @@ const getUserCustomers = (req, res) => {
     });
 };
 const getDealers = (req, res) => {
-  User.find({ role: "Dealer" })
+  User.find({ role: 'Dealer' })
     .then((dataL) => {
       res.status(200).send({
         dataL,
@@ -39,7 +39,7 @@ const SignUp = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return next(
-      new HttpError("Invalid inputs passed, please check your data.", 422)
+      new HttpError('Invalid inputs passed, please check your data.', 422)
     );
   }
   const { name, role, email, password, phoneNumber, address } = req.body;
@@ -49,9 +49,9 @@ const SignUp = async (req, res, next) => {
       if (user) {
         if (user.email == email) {
           console.log(user.email, email);
-          console.log("email matched");
+          console.log('email matched');
           const error = new HttpError(
-            "User exists already, please login instead.",
+            'User exists already, please login instead.',
             422
           );
           return next(error);
@@ -74,12 +74,12 @@ const SignUp = async (req, res, next) => {
               try {
                 token = jwt.sign(
                   { userId: SavedUser._id, email: SavedUser.email },
-                  "supersecret_dont_share",
-                  { expiresIn: "1h" }
+                  'supersecret_dont_share',
+                  { expiresIn: '1h' }
                 );
               } catch (err) {
                 const error = new HttpError(
-                  "Signing up failed, please try again later.",
+                  'Signing up failed, please try again later.',
                   500
                 );
                 return next(error);
@@ -93,7 +93,7 @@ const SignUp = async (req, res, next) => {
             })
             .catch((err) => {
               const error = new HttpError(
-                "Signing up failed, please try again later.",
+                'Signing up failed, please try again later.',
                 500
               );
               return next(error);
@@ -103,7 +103,7 @@ const SignUp = async (req, res, next) => {
     })
     .catch((err) => {
       const error = new HttpError(
-        "Signing up failed, please try again later.",
+        'Signing up failed, please try again later.',
         500
       );
       return next(error);
@@ -122,7 +122,7 @@ const Login = async (req, res, next) => {
     console.log(existingUser);
   } catch (err) {
     const error = new HttpError(
-      "Logging in failed, please try again later.",
+      'Logging in failed, please try again later.',
       500
     );
     return next(error);
@@ -130,7 +130,7 @@ const Login = async (req, res, next) => {
 
   if (!existingUser) {
     const error = new HttpError(
-      "Invalid credentials, could not log you in.",
+      'Invalid credentials, could not log you in.',
       401
     );
     return next(error);
@@ -141,7 +141,7 @@ const Login = async (req, res, next) => {
     // if password match create payload
     console.log(result);
     if (result) {
-      console.log("matched");
+      console.log('matched');
       let token;
 
       try {
@@ -151,13 +151,13 @@ const Login = async (req, res, next) => {
             email: existingUser.email,
             role: existingUser.role,
           },
-          "supersecret_dont_share",
-          { expiresIn: "1h" }
+          'supersecret_dont_share',
+          { expiresIn: '1h' }
         );
         console.log(token);
       } catch (err) {
         const error = new HttpError(
-          "Logging in failed, please try again later.",
+          'Logging in failed, please try again later.',
           500
         );
         return next(error);
@@ -176,19 +176,19 @@ const Login = async (req, res, next) => {
       //   req.session.userId = result
       //  console.log(req.session.userId)
     } else {
-      console.log("invalid");
-      const error = new HttpError("Invalid credential");
+      console.log('invalid');
+      const error = new HttpError('Invalid credential');
       return next(error);
     }
   });
-  res.cookie("jwt", token, {
+  res.cookie('jwt', token, {
     httpOnly: true,
   });
 };
 
 const autoSignIn = async (req, res, next) => {
   const { email } = req.body;
-  console.log(email, "from auto");
+  console.log(email, 'from auto');
   let existingUser;
 
   try {
@@ -199,7 +199,7 @@ const autoSignIn = async (req, res, next) => {
     }
   } catch (err) {
     const error = new HttpError(
-      "Logging in failed, please try again later.",
+      'Logging in failed, please try again later.',
       500
     );
     return next(error);
@@ -217,7 +217,7 @@ const dashboard = async (req, res, next) => {
       res.json({ existingUser });
     }
   } catch (err) {
-    const error = new HttpError("no data found, please try again later.", 500);
+    const error = new HttpError('no data found, please try again later.', 500);
     return next(error);
   }
 };

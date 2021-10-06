@@ -20,7 +20,12 @@ const saloonSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  serviceCategory: {
+
+  dealerEmail: {
+    type: String,
+    required: true,
+  },
+  price: {
     type: String,
     required: true,
   },

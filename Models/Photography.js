@@ -17,11 +17,15 @@ const photographySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  dealerEmail: {
+    type: String,
+    required: true,
+  },
   serviceName: {
     type: String,
     required: true,
   },
-  serviceCategory: {
+  price: {
     type: String,
     required: true,
   },

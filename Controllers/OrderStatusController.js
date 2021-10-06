@@ -2,10 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const orderStausModel = require('../Models/OrderStatus');
 const orderStatusgive = async (req, res, next) => {
-  const { orderStatus } = req.body;
-  console.log(orderStatus);
+  const { orderStatus, email, serviceName } = req.body;
+  console.log(orderStatus, email, serviceName);
   const orderRecieved = new orderStausModel({
     orderStatus,
+    serviceName,
   });
   orderRecieved
     .save()
@@ -19,7 +20,8 @@ const orderStatusgive = async (req, res, next) => {
 };
 const getOrderStatus = (req, res) => {
   orderStausModel
-    .find({})
+    .find()
+
     .then((dataL) => {
       res.status(200).send({
         dataL,

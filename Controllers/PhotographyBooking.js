@@ -10,7 +10,8 @@ const PhotoshootBooking = async (req, res, next) => {
     photographyType,
     email,
     serviceName,
-    serviceCategory,
+    price,
+    dealerEmail,
   } = req.body;
   console.log(
     functionDate,
@@ -18,7 +19,8 @@ const PhotoshootBooking = async (req, res, next) => {
     photographyType,
     email,
     serviceName,
-    serviceCategory
+    price,
+    dealerEmail
   );
 
   const photographyBooking = new PhotographySchema({
@@ -26,8 +28,9 @@ const PhotoshootBooking = async (req, res, next) => {
     functionTime,
     photographyType,
     email,
+    price,
     serviceName,
-    serviceCategory,
+    dealerEmail,
   });
   photographyBooking
     .save()

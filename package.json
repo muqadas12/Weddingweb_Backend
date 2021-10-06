@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "jsdoc": "jsdoc -c jsdoc.json",
     "format": "prettier --write \"**/*.+(js|jsx|json|css|md)\""
   },
   "author": "",
@@ -16,6 +17,7 @@
     "aws-sdk": "^2.983.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "braintree": "^3.7.0",
     "cloudinary": "^1.26.3",
     "config": "^3.3.6",
     "connect-mongo": "^4.5.0",
@@ -39,14 +41,17 @@
     "nodemailer": "^6.6.3",
     "path": "^0.12.7",
     "session": "^0.1.0",
+    "stripe": "^8.176.0",
     "swagger-doc": "^0.3.0",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2",
+    "uuidv4": "^6.2.12",
     "validation": "0.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.12",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "react-test-renderer": "^17.0.2"
   }
 }

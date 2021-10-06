@@ -18,16 +18,20 @@ const CarsBooking = async (req, res, next) => {
     functionTime,
     numOfPeople,
     email,
+    price,
     serviceName,
-    serviceCategory,
+    dealerEmail,
+    carType,
   } = req.body;
   console.log(
     functionDate,
     functionTime,
     numOfPeople,
     email,
+    price,
     serviceName,
-    serviceCategory
+    dealerEmail,
+    carType
   );
 
   const carRentalBooking = new CarRentalSchema({
@@ -35,8 +39,10 @@ const CarsBooking = async (req, res, next) => {
     functionTime,
     numOfPeople,
     email,
+    price,
     serviceName,
-    serviceCategory,
+    dealerEmail,
+    carType,
   });
   carRentalBooking
     .save()

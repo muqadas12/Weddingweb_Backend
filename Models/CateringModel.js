@@ -25,7 +25,16 @@ const cateringSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  serviceCategory: {
+  dealerEmail: {
+    type: String,
+    required: true,
+  },
+
+  foodType: {
+    type: String,
+    required: true,
+  },
+  price: {
     type: String,
     required: true,
   },

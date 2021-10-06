@@ -10,7 +10,8 @@ const SaloonBooking = async (req, res, next) => {
     makeupType,
     email,
     serviceName,
-    serviceCategory,
+    price,
+    dealerEmail,
   } = req.body;
   console.log(
     functionDate,
@@ -18,7 +19,8 @@ const SaloonBooking = async (req, res, next) => {
     makeupType,
     email,
     serviceName,
-    serviceCategory
+    price,
+    dealerEmail
   );
 
   const saloonfunBooking = new saloonSchema({
@@ -27,7 +29,8 @@ const SaloonBooking = async (req, res, next) => {
     makeupType,
     email,
     serviceName,
-    serviceCategory,
+    price,
+    dealerEmail,
   });
   saloonfunBooking
     .save()
