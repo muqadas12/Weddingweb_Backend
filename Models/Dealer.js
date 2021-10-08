@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const dealerSchema = mongoose.Schema({
   serviceName: {
@@ -25,7 +25,26 @@ const dealerSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-
+  hallType: {
+    type: String,
+    require: true,
+  },
+  city: {
+    type: String,
+    require: true,
+  },
+  services: {
+    type: String,
+    require: true,
+  },
+  maxCapacity: {
+    type: String,
+    require: true,
+  },
+  minCapacity: {
+    type: String,
+    require: true,
+  },
   img: { data: Buffer, contentType: String },
 });
-module.exports = mongoose.model("Dealer", dealerSchema);
+module.exports = mongoose.model('Dealer', dealerSchema);

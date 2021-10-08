@@ -19,7 +19,7 @@ app.get('/view-car-rental-orders', (req, res, next) => {
 app.get('/view-car-rental-dealer-orders', (req, res, next) => {
   carRentalSchema
     .find({ dealerEmail: req.query.email })
-    .populate('orderStatus')
+    .populate('OrderStatus')
 
     .then((data) => {
       //   console.log(data);

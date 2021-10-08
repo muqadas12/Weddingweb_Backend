@@ -24,7 +24,11 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  serviceCategory: {
+  price: {
+    type: String,
+    required: true,
+  },
+  dealerEmail: {
     type: String,
     required: true,
   },

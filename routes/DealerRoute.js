@@ -36,6 +36,11 @@ const postDealerdata = app.post(
     dealer.description = req.body.description;
     dealer.price = req.body.price;
     dealer.email = req.body.email;
+    dealer.hallType = req.body.hallType;
+    dealer.city = req.body.city;
+    dealer.maxCapacity = req.body.maxCapacity;
+    dealer.minCapacity = req.body.minCapacity;
+    dealer.services = req.body.services;
 
     dealer.pathImg = 'http://localhost:2000/static/' + req.file.filename;
 
@@ -67,6 +72,7 @@ const getDealerdata = app.get('/get-dealers', function (req, res, next) {
     .find({ email: req.query.email })
     .then((data) => {
       console.log(data, 'from dealer servicessssssssssss');
+
       res.status(200).send({
         img: data.map((c) => c.img),
         serviceName: data.map((c) => c.serviceName),
@@ -99,6 +105,16 @@ const getSaloonServices = app.get(
       });
   }
 );
+const getHalls = app.get('/getHall', function (req, res) {
+  dealerservices
+    .find({ dealerservice: 'wedHall' })
+    .then((dataH) => {
+      res.status(200).send({ dataH });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 const getCarServices = app.get('/get-cars', function (req, res, next) {
   dealerservices
     .find({ dealerservice: 'Car rental' })
@@ -162,4 +178,5 @@ module.exports = {
   getCarServices,
   getCatering,
   getPhotos,
+  getHalls,
 };

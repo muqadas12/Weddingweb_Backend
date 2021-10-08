@@ -68,6 +68,8 @@ app.use('/api/getAlldealer', DealerRoute.getAllDealers);
 app.use('/api/saloon', DealerRoute.getSaloonServices);
 app.use('/api/cars', DealerRoute.getCarServices);
 app.use('/api/catering', DealerRoute.getCatering);
+app.use('/api/hall', DealerRoute.getHalls);
+
 app.use('/api/servicescatering', cateringBooking);
 
 app.use('/api/photos', DealerRoute.getPhotos);

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const Hallschema = mongoose.Schema({
   name: {
@@ -34,4 +34,4 @@ const Hallschema = mongoose.Schema({
     require: true,
   },
 });
-module.exports = mongoose.model("Hall", Hallschema);
+module.exports = mongoose.model('Hall', Hallschema);

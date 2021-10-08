@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const OrderStatus = require('./OrderStatus');
 const CarrentalSchema = new mongoose.Schema({
   functionDate: {
     type: String,
@@ -32,6 +33,10 @@ const CarrentalSchema = new mongoose.Schema({
   carType: {
     type: String,
     required: true,
+  },
+  OrderStatus: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'OrderStatus',
   },
 });
 module.exports = mongoose.model('CarRental', CarrentalSchema);

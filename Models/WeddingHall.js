@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const hallSchema = new mongoose.Schema({
   cityName: {
@@ -14,4 +14,4 @@ const hallSchema = new mongoose.Schema({
     required: true,
   },
 });
-module.exports = mongoose.model("WeddingHall", hallSchema);
+module.exports = mongoose.model('WeddingHall', hallSchema);

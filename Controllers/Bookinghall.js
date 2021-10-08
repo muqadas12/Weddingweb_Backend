@@ -20,7 +20,8 @@ const booking = async (req, res, next) => {
     numOfPeople,
     email,
     serviceName,
-    serviceCategory,
+    price,
+    dealerEmail,
   } = req.body;
   console.log(
     functionDate,
@@ -29,7 +30,8 @@ const booking = async (req, res, next) => {
     numOfPeople,
     email,
     serviceName,
-    serviceCategory
+    price,
+    dealerEmail
   );
 
   const booked = new bookingSchema({
@@ -39,7 +41,8 @@ const booking = async (req, res, next) => {
     numOfPeople,
     email,
     serviceName,
-    serviceCategory,
+    price,
+    dealerEmail,
   });
   booked
     .save()
