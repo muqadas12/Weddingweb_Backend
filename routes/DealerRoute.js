@@ -158,7 +158,7 @@ const getAllDealers = app.get(
   '/get-all-dealer-services',
   function (req, res, next) {
     dealerservices
-      .find({})
+      .find({ email: req.query.email })
       .then((dataAlldealers) => {
         res.status(200).send(dataAlldealers);
       })

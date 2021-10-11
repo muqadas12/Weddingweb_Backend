@@ -22,6 +22,22 @@ router.get('/get-catering', function (req, res, next) {
       });
     });
 });
+router.get('/get-catering-customer', function (req, res, next) {
+  CateringSchema.find({ email: req.query.email })
+    .then((data) => {
+      console.log(data);
+
+      res.status(200).send({
+        data,
+      });
+    })
+    .catch((err) => {
+      return res.status(500).send({
+        Message: 'Unable to get. Please Try later.',
+        err,
+      });
+    });
+});
 router.get('/get-cateringservices', function (req, res, next) {
   console.log(req.query.email, 'im email of get');
   CateringSchema.find({ email: req.query.email })
@@ -33,6 +49,8 @@ router.get('/get-cateringservices', function (req, res, next) {
         functionType: data.map((c) => c.functionType),
         foodType: data.map((c) => c.foodType),
         email: data.map((c) => c.email),
+        price: data.map((c) => c.price),
+
         serviceName: data.map((c) => c.serviceName),
         serviceCategory: data.map((c) => c.serviceCategory),
 

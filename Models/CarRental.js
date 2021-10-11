@@ -34,6 +34,7 @@ const CarrentalSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
   OrderStatus: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'OrderStatus',

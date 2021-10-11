@@ -16,6 +16,7 @@ app.get('/get-Saloonservices', function (req, res, next) {
         makeupType: data.map((c) => c.makeupType),
         email: data.map((c) => c.email),
         serviceName: data.map((c) => c.serviceName),
+        price: data.map((c) => c.price),
         serviceCategory: data.map((c) => c.serviceCategory),
       });
     })
@@ -29,11 +30,28 @@ app.get('/get-Saloonservices', function (req, res, next) {
 app.get('/get-saloon-services', function (req, res, next) {
   saloonSchema
     .find({ dealerEmail: req.query.email })
-    .then((data) => {
+    .then((datas) => {
       // console.log(data);
 
       res.status(200).send({
-        data,
+        datas,
+      });
+    })
+    .catch((err) => {
+      return res.status(500).send({
+        Message: 'Unable to get. Please Try later.',
+        err,
+      });
+    });
+});
+app.get('/get-saloon-services-customer', function (req, res, next) {
+  saloonSchema
+    .find({ email: req.query.email })
+    .then((datas) => {
+      // console.log(data);
+
+      res.status(200).send({
+        datas,
       });
     })
     .catch((err) => {
