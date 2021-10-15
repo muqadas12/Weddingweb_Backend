@@ -24,10 +24,18 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  serviceCategory: {
+  price: {
     type: String,
     required: true,
   },
+  dealerEmail: {
+    type: String,
+    required: true,
+  },
+  // serviceCategory: {
+  //   type: String,
+  //   required: true,
+  // },
 });
 
 module.exports = mongoose.model('Bookinghall', bookingSchema);

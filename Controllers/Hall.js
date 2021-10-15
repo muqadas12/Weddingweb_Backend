@@ -1,5 +1,5 @@
-const dataH = require("./data.json");
-const hallSchema = require("../Models/Hall");
+const dataH = require('./data.json');
+const hallSchema = require('../Models/Hall');
 
 const getData = (req, res) => {
   hallSchema
@@ -8,7 +8,7 @@ const getData = (req, res) => {
       res.status(200).send({
         dataH,
       });
-      console.log(dataa);
+      console.log(dataH);
     })
     .catch((err) => {
       res.status(500).json(err);

@@ -64,6 +64,7 @@ app.use('/api/hall', hallRoute);
 app.use('/api/email', emailsend);
 app.use('/api/getdealer', DealerRoute.getDealerdata);
 app.use('/api/getAlldealer', DealerRoute.getAllDealers);
+app.use('/api/gethall', DealerRoute.getHall);
 
 app.use('/api/saloon', DealerRoute.getSaloonServices);
 app.use('/api/cars', DealerRoute.getCarServices);

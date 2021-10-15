@@ -142,7 +142,7 @@ const getAllDealers = app.get(
   '/get-all-dealer-services',
   function (req, res, next) {
     dealerservices
-      .find({})
+      .find({ email: req.query.email })
       .then((dataAlldealers) => {
         res.status(200).send(dataAlldealers);
       })
@@ -154,6 +154,19 @@ const getAllDealers = app.get(
       });
   }
 );
+const getHall = app.get('/get-hall-ser', function (req, res, next) {
+  dealerservices
+    .find({ dealerservice: 'wedHall' })
+    .then((dataH) => {
+      res.status(200).send(dataH);
+    })
+    .catch((err) => {
+      return res.status(500).send({
+        err,
+        Message: 'couldnot get any dealers.. :( ',
+      });
+    });
+});
 module.exports = {
   getDealerdata,
   getAllDealers,
@@ -162,4 +175,5 @@ module.exports = {
   getCarServices,
   getCatering,
   getPhotos,
+  getHall,
 };
