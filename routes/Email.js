@@ -1,9 +1,9 @@
-const nodemailer = require("nodemailer");
-const express = require("express");
-const bodyParser = require("body-parser");
+const nodemailer = require('nodemailer');
+const express = require('express');
+const bodyParser = require('body-parser');
 const app = express.Router();
 
-app.post("/mail", function (req, res, next) {
+app.post('/mail', function (req, res, next) {
   nodemailer.createTestAccount((err, info) => {
     const htmlEmail = `
         <h3>Contact detail</h3>
@@ -20,17 +20,20 @@ app.post("/mail", function (req, res, next) {
         `;
 
     var transport = nodemailer.createTransport({
-      service: "gmail",
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
       auth: {
-        user: "muqadasshaban@gmail.com",
-        pass: "momina20",
+        user: 'muqadasshaban@gmail.com',
+        pass: 'momina20',
       },
     });
 
     var mailoption = {
       from: req.body.name,
-      to: "muqadasshaban@gmail.com",
-      subject: "New msg",
+      to: 'muqadasshaban@gmail.com',
+      subject: 'New msg',
       rec: req.body.email,
       text: req.body.msg,
       html: htmlEmail,
@@ -39,7 +42,7 @@ app.post("/mail", function (req, res, next) {
       if (err) {
         console.log(err);
       } else {
-        console.log("mail sent!" + info.response);
+        console.log('mail sent!' + info.response);
       }
     });
   });
