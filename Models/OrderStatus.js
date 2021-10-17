@@ -4,6 +4,22 @@ const orderStatus = new mongoose.Schema({
     type: String,
     required: true,
   },
-  carrentals: [{ type: mongoose.Schema.Types.ObjectId, ref: 'CarRental' }],
+
+  serviceName: {
+    type: String,
+    required: true,
+  },
+  userEmail: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: String,
+    required: true,
+  },
+  functionDate: {
+    type: String,
+    required: true,
+  },
 });
 module.exports = mongoose.model('OrderStatus', orderStatus);

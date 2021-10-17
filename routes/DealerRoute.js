@@ -37,8 +37,7 @@ const postDealerdata = app.post(
     dealer.price = req.body.price;
     dealer.email = req.body.email;
 
-    dealer.pathImg =
-      'https://wedding-web-app.herokuapp.com/' + req.file.filename;
+    dealer.pathImg = 'http://localhost:2000/static/' + req.file.filename;
 
     console.log(dealer.pathImg);
 
