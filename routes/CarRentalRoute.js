@@ -16,17 +16,22 @@ app.get('/view-car-rental-orders', (req, res, next) => {
       console.log(err);
     });
 });
-app.get('/view-car-rental-dealer-orders', (req, res, next) => {
+
+app.get('/view-car-rental-dealer-orders', function (req, res, next) {
   carRentalSchema
     .find({ dealerEmail: req.query.email })
-    .populate('orderStatus')
-
     .then((data) => {
-      //   console.log(data);
-      res.status(202).send({ data });
+      // console.log(data);
+
+      res.status(200).send({
+        data,
+      });
     })
     .catch((err) => {
-      console.log(err);
+      return res.status(500).send({
+        Message: 'Unable to get. Please Try later.',
+        err,
+      });
     });
 });
 module.exports = app;
