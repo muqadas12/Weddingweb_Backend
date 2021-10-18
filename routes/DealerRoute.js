@@ -27,7 +27,7 @@ const uploads = multer({ storage: storage });
 
 const postDealerdata = app.post(
   '/post-dealers',
-  uploads.single('image'),
+  // uploads.single('image'),
   async (req, res, next) => {
     var dealer = new dealerservices();
 

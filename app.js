@@ -126,6 +126,6 @@ app.post('/stripe/charge', async (req, res) => {
   }
 });
 
-const port = process.env.PORT || 2000;
+const port = 2000 || process.env.PORT;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
