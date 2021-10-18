@@ -2,9 +2,15 @@ const express = require('express');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 const dealerservices = require('../Models/Dealer');
 
 const app = express();
+cloudinary.config({
+  cloud_name: 'dpt9qa7ms',
+  api_key: '755591287886294',
+  api_secret: 'kStIxeJ8 - omdHmhc1Ws62GVDHOU',
+});
 app.use('/static', express.static('uploadFiles'));
 
 const storage = multer.diskStorage({
@@ -30,21 +36,17 @@ const postDealerdata = app.post(
   uploads.single('image'),
   async (req, res, next) => {
     var dealer = new dealerservices();
-
     dealer.serviceName = req.body.serviceName;
     dealer.dealerservice = req.body.dealerservice;
     dealer.description = req.body.description;
     dealer.price = req.body.price;
     dealer.email = req.body.email;
-
-    dealer.pathImg = 'http://localhost:2000/static/' + req.file.filename;
-
+    dealer.pathImg =
+      'https://wedding-web-app.herokuapp.com/' + req.file.filename;
     console.log(dealer.pathImg);
-
     dealer.img.contentType = 'image/png';
     dealer.save((err, result) => {
       console.log(result);
-
       if (err) return console.log(err);
       console.log('saved to database');
       res.send(dealer);
