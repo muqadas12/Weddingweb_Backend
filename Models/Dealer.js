@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const dealerSchema = mongoose.Schema({
   serviceName: {
@@ -25,7 +25,10 @@ const dealerSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  cloudinary_id: {
+    type: String,
+  },
 
   img: { data: Buffer, contentType: String },
 });
-module.exports = mongoose.model("Dealer", dealerSchema);
+module.exports = mongoose.model('Dealer', dealerSchema);

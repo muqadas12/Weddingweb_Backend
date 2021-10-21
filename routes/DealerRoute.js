@@ -2,15 +2,12 @@ const express = require('express');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('../utils/cloudinary');
+const upload = require('../utils/multer');
 const dealerservices = require('../Models/Dealer');
 
 const app = express();
-cloudinary.config({
-  cloud_name: 'dpt9qa7ms',
-  api_key: '755591287886294',
-  api_secret: 'kStIxeJ8 - omdHmhc1Ws62GVDHOU',
-});
+
 app.use('/static', express.static('uploadFiles'));
 
 const storage = multer.diskStorage({
@@ -33,23 +30,37 @@ const uploads = multer({ storage: storage });
 
 const postDealerdata = app.post(
   '/post-dealers',
-  uploads.single('image'),
+  upload.single('image'),
   async (req, res, next) => {
-    var dealer = new dealerservices();
-    dealer.serviceName = req.body.serviceName;
-    dealer.dealerservice = req.body.dealerservice;
-    dealer.description = req.body.description;
-    dealer.price = req.body.price;
-    dealer.email = req.body.email;
-    dealer.pathImg = 'http://localhost:2000/static/' + req.file.filename;
-    console.log(dealer.pathImg);
-    dealer.img.contentType = 'image/png';
-    dealer.save((err, result) => {
-      console.log(result);
-      if (err) return console.log(err);
-      console.log('saved to database');
-      res.send(dealer);
-    });
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path);
+
+      var dealer = new dealerservices();
+      dealer.dealerservice = req.body.dealerservice;
+      dealer.description = req.body.description;
+      dealer.price = req.body.price;
+      dealer.email = req.body.email;
+      dealer.serviceName = req.body.serviceName;
+
+      dealer.pathImg = result.secure_url;
+
+      // dealer.pathImg = cloudinary.v2.url(req.file.filename, {
+      //   width: 100,
+      //   height: 150,
+      //   crop: 'fill',
+      // });
+      // cloudinary.v2.uploader.upload
+      console.log(dealer.pathImg);
+      dealer.img.contentType = 'image/png';
+      dealer.save((err, result) => {
+        console.log(result);
+        if (err) return console.log(err);
+        console.log('saved to database');
+        res.send(dealer);
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 );
 /**

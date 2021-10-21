@@ -42,6 +42,7 @@ app.use((req, res, next) => {
 connectDB();
 
 app.use(express.json());
+app.use('/user', require('./routes/user'));
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
